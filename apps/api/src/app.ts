@@ -1,11 +1,18 @@
+import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import { fastifySwagger } from '@fastify/swagger'
 import ScalarApiReference from '@scalar/fastify-api-reference'
 import { env } from '@triae/env'
 import fastify from 'fastify'
-import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from 'fastify-type-provider-zod'
 import { errorHandler } from './common/error-handler'
+import { authRoutes } from './modules/auth/auth.routes'
 import { usersRoutes } from './modules/users/users.routes'
 
 const buildApp = () => {
@@ -26,6 +33,11 @@ const buildApp = () => {
     secret: env.JWT_SECRET_KEY,
   })
 
+  app.register(fastifyCookie, {
+    secret: env.JWT_SECRET_KEY,
+    hook: 'preHandler',
+  })
+
   app.register(fastifySwagger, {
     openapi: {
       info: {
@@ -41,6 +53,7 @@ const buildApp = () => {
     routePrefix: '/docs',
   })
 
+  app.register(authRoutes)
   app.register(usersRoutes)
 
   app.listen({ port: env.PORT, host: env.HOST })

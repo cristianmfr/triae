@@ -29,6 +29,19 @@ class UserService {
     return user
   }
 
+  async findUniqueUserByEmail(email: string) {
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: {
+        profile: true,
+      },
+    })
+
+    if (!user) throw new NotFoundError('User')
+
+    return user
+  }
+
   async createUser(input: CreateUserInput) {
     const addUserTransaction = await prisma.$transaction(async (tx) => {
       let passwordHashed = null
