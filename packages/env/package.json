@@ -1,0 +1,17 @@
+{
+  "name": "@triae/env",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "generate": "pnpm run load:env prisma generate",
+    "load:env": "dotenv -e ../../.env --"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "5.9.2"
+  },
+  "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "zod": "^4.1.13"
+  }
+}

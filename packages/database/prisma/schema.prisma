@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id String @id @default(uuid(7))
+
+  username String  @unique
+  email    String  @unique
+  password String?
+  active   Boolean @default(true)
+  verified Boolean @default(true)
+
+  profile Profile?
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  workspaceMembers WorkspaceMember[]
+
+  @@map("users")
+}
+
+model Profile {
+  id String @id @default(uuid(7))
+
+  name    String
+  email   String?
+  phone   String?
+  company String?
+  image   String?
+
+  userId String @unique @map("user_id")
+  user   User   @relation(references: [id], fields: [userId])
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  @@map("profiles")
+}
+
+model Workspace {
+  id String @id @default(uuid(7))
+
+  name        String
+  slug        String
+  description String?
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  workspaceMembers WorkspaceMember[]
+
+  @@map("workspaces")
+}
+
+model WorkspaceMember {
+  id String @id @default(uuid(7))
+
+  role   WorkspaceRole @default(USER)
+  active Boolean       @default(true)
+
+  userId String @map("user_id")
+  user   User   @relation(references: [id], fields: [userId])
+
+  workspaceId String    @map("workspace_id")
+  workspace   Workspace @relation(references: [id], fields: [workspaceId])
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  USER
+  GUEST
+
+  @@map("workspace_role_enum")
+}
