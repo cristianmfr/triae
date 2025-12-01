@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: postgres-triae
+    restart: unless-stopped
+    environment:
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: postgres
+      POSTGRESQL_DATABASE: triae
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/bitnami/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d triae"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - default-network
+
+  redis:
+    image: bitnami/redis:latest
+    container_name: redis-triae
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: redis
+      REDIS_AOF_ENABLED: yes
+      REDIS_MAXMEMORY: 256mb
+      REDIS_MAXMEMORY_POLICY: allkeys-lru
+      REDIS_REPLICATION_MODE: master
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/bitnami/redis/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - default-network
+
+networks:
+  default-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
