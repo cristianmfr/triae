@@ -2,6 +2,9 @@
   "name": "@triae/database",
   "version": "0.0.0",
   "main": "index.js",
+  "exports": {
+    "./prisma": "./index.ts"
+  },
   "scripts": {
     "generate": "pnpm run load:env prisma generate",
     "migrate": "pnpm run load:env prisma migrate dev",
