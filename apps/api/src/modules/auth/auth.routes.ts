@@ -23,13 +23,22 @@ export const authRoutes: FastifyPluginAsyncZod = async (fastify) => {
         password,
       })
 
-      reply.setCookie('triae.session.token', session, {
+      reply.setCookie('triae_session_token', session, {
         httpOnly: true,
         path: '/',
         secure: true,
       })
 
       return reply.code(204).send(null)
+    },
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/auth/cu',
+    preHandler: [fastify.authenticate],
+    handler: async (_request, reply) => {
+      return reply.send(null)
     },
   })
 }

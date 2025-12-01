@@ -1,6 +1,5 @@
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
-import fastifyJwt from '@fastify/jwt'
 import { fastifySwagger } from '@fastify/swagger'
 import ScalarApiReference from '@scalar/fastify-api-reference'
 import { env } from '@triae/env'
@@ -12,6 +11,7 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 import { errorHandler } from './common/error-handler'
+import { auth } from './common/plugins/auth.plugin'
 import { authRoutes } from './modules/auth/auth.routes'
 import { usersRoutes } from './modules/users/users.routes'
 
@@ -29,9 +29,7 @@ const buildApp = () => {
     credentials: true,
   })
 
-  app.register(fastifyJwt, {
-    secret: env.JWT_SECRET_KEY,
-  })
+  app.register(auth)
 
   app.register(fastifyCookie, {
     secret: env.JWT_SECRET_KEY,
