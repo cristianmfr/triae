@@ -1,6 +1,7 @@
 import { prisma } from '@triae/database/prisma'
 import { hash } from 'bcryptjs'
-import { CreateUserInput } from '@/common/schemas/user-schemas'
+import { NotFoundError } from '@/common/errors/not-found-error'
+import { CreateUserInput } from './users.schema'
 
 class UserService {
   private readonly HASH_SALT_ROUNDS = 12
@@ -22,6 +23,8 @@ class UserService {
         profile: true,
       },
     })
+
+    if (!user) throw new NotFoundError('User')
 
     return user
   }
@@ -70,9 +73,9 @@ class UserService {
       },
     })
 
-    if (!user) return false
+    if (!user) throw new NotFoundError()
 
-    if (user?.profile?.id) {
+    if (user.profile?.id) {
       await prisma.profile.delete({
         where: { id: user.profile.id },
       })
@@ -81,8 +84,6 @@ class UserService {
     await prisma.user.delete({
       where: { id: user.id },
     })
-
-    return true
   }
 }
 

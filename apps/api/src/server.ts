@@ -2,10 +2,10 @@ import { env } from '@triae/env'
 import { FastifyError } from 'fastify'
 import { app } from './app'
 
-async function bootstrap() {
+async function server() {
   try {
     app()
-    console.log(`HTTP server running on ${env.HOST}:${env.PORT}`)
+    console.log(`API server running on ${env.HOST}:${env.PORT}`)
     console.log(`Docs available at prefix ${env.HOST}:${env.PORT}/docs`)
   } catch (error) {
     const err = error as FastifyError
@@ -13,4 +13,4 @@ async function bootstrap() {
     process.exit(1)
   }
 }
-bootstrap()
+server()

@@ -1,13 +1,12 @@
 import fastifyCors from '@fastify/cors'
+import fastifyJwt from '@fastify/jwt'
 import { fastifySwagger } from '@fastify/swagger'
 import ScalarApiReference from '@scalar/fastify-api-reference'
 import { env } from '@triae/env'
 import fastify from 'fastify'
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
-import { createUser } from './routes/users/create-user'
-import { deleteUser } from './routes/users/delete-user'
-import { getUser } from './routes/users/get-user'
-import { getUsers } from './routes/users/get-users'
+import { errorHandler } from './common/error-handler'
+import { usersRoutes } from './modules/users/users.routes'
 
 const buildApp = () => {
   const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -15,10 +14,16 @@ const buildApp = () => {
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
 
+  app.setErrorHandler(errorHandler)
+
   app.register(fastifyCors, {
     origin: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
+  })
+
+  app.register(fastifyJwt, {
+    secret: env.JWT_SECRET_KEY,
   })
 
   app.register(fastifySwagger, {
@@ -36,10 +41,7 @@ const buildApp = () => {
     routePrefix: '/docs',
   })
 
-  app.register(getUser)
-  app.register(getUsers)
-  app.register(createUser)
-  app.register(deleteUser)
+  app.register(usersRoutes)
 
   app.listen({ port: env.PORT, host: env.HOST })
 
