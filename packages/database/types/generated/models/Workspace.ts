@@ -245,8 +245,8 @@ export type WorkspaceCreateInput = {
   name: string
   slug: string
   description?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   workspaceMembers?: Prisma.WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
 }
 
@@ -255,8 +255,8 @@ export type WorkspaceUncheckedCreateInput = {
   name: string
   slug: string
   description?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   workspaceMembers?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
@@ -285,8 +285,8 @@ export type WorkspaceCreateManyInput = {
   name: string
   slug: string
   description?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceUpdateManyMutationInput = {
@@ -358,8 +358,8 @@ export type WorkspaceCreateWithoutWorkspaceMembersInput = {
   name: string
   slug: string
   description?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceUncheckedCreateWithoutWorkspaceMembersInput = {
@@ -367,8 +367,8 @@ export type WorkspaceUncheckedCreateWithoutWorkspaceMembersInput = {
   name: string
   slug: string
   description?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceCreateOrConnectWithoutWorkspaceMembersInput = {

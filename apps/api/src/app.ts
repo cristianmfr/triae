@@ -4,6 +4,10 @@ import ScalarApiReference from '@scalar/fastify-api-reference'
 import { env } from '@triae/env'
 import fastify from 'fastify'
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
+import { createUser } from './routes/users/create-user'
+import { deleteUser } from './routes/users/delete-user'
+import { getUser } from './routes/users/get-user'
+import { getUsers } from './routes/users/get-users'
 
 const buildApp = () => {
   const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -31,6 +35,11 @@ const buildApp = () => {
   app.register(ScalarApiReference, {
     routePrefix: '/docs',
   })
+
+  app.register(getUser)
+  app.register(getUsers)
+  app.register(createUser)
+  app.register(deleteUser)
 
   app.listen({ port: env.PORT, host: env.HOST })
 

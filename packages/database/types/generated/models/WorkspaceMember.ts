@@ -259,8 +259,8 @@ export type WorkspaceMemberCreateInput = {
   id?: string
   role?: $Enums.WorkspaceRole
   active?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWorkspaceMembersInput
   workspace: Prisma.WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
 }
@@ -271,8 +271,8 @@ export type WorkspaceMemberUncheckedCreateInput = {
   active?: boolean
   userId: string
   workspaceId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceMemberUpdateInput = {
@@ -301,8 +301,8 @@ export type WorkspaceMemberCreateManyInput = {
   active?: boolean
   userId: string
   workspaceId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceMemberUpdateManyMutationInput = {
@@ -455,8 +455,8 @@ export type WorkspaceMemberCreateWithoutUserInput = {
   id?: string
   role?: $Enums.WorkspaceRole
   active?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
 }
 
@@ -465,8 +465,8 @@ export type WorkspaceMemberUncheckedCreateWithoutUserInput = {
   role?: $Enums.WorkspaceRole
   active?: boolean
   workspaceId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceMemberCreateOrConnectWithoutUserInput = {
@@ -512,8 +512,8 @@ export type WorkspaceMemberCreateWithoutWorkspaceInput = {
   id?: string
   role?: $Enums.WorkspaceRole
   active?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWorkspaceMembersInput
 }
 
@@ -522,8 +522,8 @@ export type WorkspaceMemberUncheckedCreateWithoutWorkspaceInput = {
   role?: $Enums.WorkspaceRole
   active?: boolean
   userId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceMemberCreateOrConnectWithoutWorkspaceInput = {
@@ -557,8 +557,8 @@ export type WorkspaceMemberCreateManyUserInput = {
   role?: $Enums.WorkspaceRole
   active?: boolean
   workspaceId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceMemberUpdateWithoutUserInput = {
@@ -593,8 +593,8 @@ export type WorkspaceMemberCreateManyWorkspaceInput = {
   role?: $Enums.WorkspaceRole
   active?: boolean
   userId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type WorkspaceMemberUpdateWithoutWorkspaceInput = {

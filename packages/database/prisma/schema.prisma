@@ -18,8 +18,8 @@ model User {
 
   profile Profile?
 
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   workspaceMembers WorkspaceMember[]
 
@@ -38,8 +38,8 @@ model Profile {
   userId String @unique @map("user_id")
   user   User   @relation(references: [id], fields: [userId])
 
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("profiles")
 }
@@ -51,8 +51,8 @@ model Workspace {
   slug        String
   description String?
 
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   workspaceMembers WorkspaceMember[]
 
@@ -71,8 +71,10 @@ model WorkspaceMember {
   workspaceId String    @map("workspace_id")
   workspace   Workspace @relation(references: [id], fields: [workspaceId])
 
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("workspaces_members")
 }
 
 enum WorkspaceRole {

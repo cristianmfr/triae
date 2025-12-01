@@ -274,8 +274,8 @@ export type UserCreateInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   workspaceMembers?: Prisma.WorkspaceMemberCreateNestedManyWithoutUserInput
 }
@@ -287,8 +287,8 @@ export type UserUncheckedCreateInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   workspaceMembers?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
 }
@@ -326,8 +326,8 @@ export type UserCreateManyInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
@@ -441,8 +441,8 @@ export type UserCreateWithoutProfileInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   workspaceMembers?: Prisma.WorkspaceMemberCreateNestedManyWithoutUserInput
 }
 
@@ -453,8 +453,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   workspaceMembers?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -505,8 +505,8 @@ export type UserCreateWithoutWorkspaceMembersInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
 }
 
@@ -517,8 +517,8 @@ export type UserUncheckedCreateWithoutWorkspaceMembersInput = {
   password?: string | null
   active?: boolean
   verified?: boolean
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
 }
 

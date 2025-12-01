@@ -283,8 +283,8 @@ export type ProfileCreateInput = {
   phone?: string | null
   company?: string | null
   image?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProfileInput
 }
 
@@ -296,8 +296,8 @@ export type ProfileUncheckedCreateInput = {
   company?: string | null
   image?: string | null
   userId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ProfileUpdateInput = {
@@ -332,8 +332,8 @@ export type ProfileCreateManyInput = {
   company?: string | null
   image?: string | null
   userId: string
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ProfileUpdateManyMutationInput = {
@@ -439,8 +439,8 @@ export type ProfileCreateWithoutUserInput = {
   phone?: string | null
   company?: string | null
   image?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ProfileUncheckedCreateWithoutUserInput = {
@@ -450,8 +450,8 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   phone?: string | null
   company?: string | null
   image?: string | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ProfileCreateOrConnectWithoutUserInput = {
