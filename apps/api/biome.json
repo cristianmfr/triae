@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": "//",
+  "linter": {
+    "rules": {
+      "recommended": true,
+      "style": {
+        "recommended": true,
+        "useNodejsImportProtocol": "off",
+        "useImportType": "off"
+      }
+    }
+  }
+}
