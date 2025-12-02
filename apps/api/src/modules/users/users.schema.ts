@@ -1,6 +1,6 @@
 import z from 'zod'
 
-export const profileSchema = z.object({
+export const ProfileSchema = z.object({
   id: z.string(),
   email: z.string().nullable(),
   phone: z.string().nullable(),
@@ -10,19 +10,19 @@ export const profileSchema = z.object({
   updatedAt: z.date(),
 })
 
-export const userSchema = z.object({
+export const UserSchema = z.object({
   id: z.string(),
   username: z.string(),
   email: z.string(),
   password: z.string().nullable(),
   active: z.boolean(),
   verified: z.boolean(),
-  profile: profileSchema.nullable(),
+  profile: ProfileSchema.nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })
 
-export const createUserSchema = z.object({
+export const CreateUserSchema = z.object({
   username: z.string(),
   email: z.string(),
   password: z.string().optional(),
@@ -32,10 +32,10 @@ export const createUserSchema = z.object({
   image: z.string().optional(),
 })
 
-export const updateUserSchema = createUserSchema.partial()
+export const UpdateUserSchema = CreateUserSchema.partial()
 
-export type User = z.infer<typeof userSchema>
-export type Profile = z.infer<typeof profileSchema>
+export type User = z.infer<typeof UserSchema>
+export type Profile = z.infer<typeof ProfileSchema>
 
-export type CreateUserInput = z.infer<typeof createUserSchema>
-export type UpdateUserInput = z.infer<typeof updateUserSchema>
+export type CreateUserInput = z.infer<typeof CreateUserSchema>
+export type UpdateUserInput = z.infer<typeof UpdateUserSchema>

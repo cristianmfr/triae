@@ -86,7 +86,7 @@ class AuthService {
 
     if (!currentToken) throw new UnauthorizedError()
 
-    return currentToken
+    return { currentToken, sessionData }
   }
 
   async refreshSession(token: string) {

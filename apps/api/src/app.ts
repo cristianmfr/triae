@@ -14,6 +14,7 @@ import { errorHandler } from './common/error-handler'
 import { auth } from './common/plugins/auth.plugin'
 import { authRoutes } from './modules/auth/auth.routes'
 import { usersRoutes } from './modules/users/users.routes'
+import { workspacesRoutes } from './modules/workspaces/workspaces.routes'
 
 const buildApp = () => {
   const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -53,6 +54,7 @@ const buildApp = () => {
 
   app.register(authRoutes)
   app.register(usersRoutes)
+  app.register(workspacesRoutes)
 
   app.listen({ port: env.PORT, host: env.HOST })
 

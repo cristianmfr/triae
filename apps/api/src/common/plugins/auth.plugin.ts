@@ -2,17 +2,23 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import fp from 'fastify-plugin'
 import authService from '@/modules/auth/auth.service'
 import { UnauthorizedError } from '../errors/unauthorized-error'
+import { SessionData } from '../interfaces/session.interface'
 
 declare module 'fastify' {
   interface FastifyInstance {
     authenticate: (
       request: FastifyRequest,
       reply: FastifyReply,
-    ) => Promise<void>
+    ) => Promise<SessionData>
+  }
+  interface FastifyRequest {
+    session: SessionData | null
   }
 }
 
 export const auth = fp(async (fastify: FastifyInstance) => {
+  fastify.decorateRequest('session', null)
+
   fastify.decorate(
     'authenticate',
     async (request: FastifyRequest, reply: FastifyReply) => {
@@ -23,7 +29,7 @@ export const auth = fp(async (fastify: FastifyInstance) => {
 
       const currentSession = await authService.validateSession(token)
 
-      if (currentDate > currentSession.expiresAt) {
+      if (currentDate > currentSession.currentToken.expiresAt) {
         const refreshToken = await authService.refreshSession(token)
 
         reply.setCookie('triae_session_token', refreshToken, {
@@ -32,6 +38,9 @@ export const auth = fp(async (fastify: FastifyInstance) => {
           secure: true,
         })
       }
+
+      request.session = currentSession.sessionData
+      return currentSession.sessionData
     },
   )
 })

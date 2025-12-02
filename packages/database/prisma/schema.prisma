@@ -48,7 +48,7 @@ model Workspace {
   id String @id @default(uuid(7))
 
   name        String
-  slug        String
+  slug        String  @unique
   description String?
 
   createdAt DateTime @default(now()) @map("created_at")

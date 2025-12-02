@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { createUserSchema, userSchema } from './users.schema'
+import { CreateUserSchema, UserSchema } from './users.schema'
 import usersService from './users.service'
 
 export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
@@ -12,7 +12,7 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
       summary: 'Get all users',
       response: {
         200: z.object({
-          users: z.array(userSchema),
+          users: z.array(UserSchema),
         }),
       },
     },
@@ -33,7 +33,7 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
       }),
       response: {
         200: z.object({
-          user: userSchema,
+          user: UserSchema,
         }),
       },
     },
@@ -50,9 +50,9 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
     schema: {
       tags: ['Users'],
       summary: 'Create a new user',
-      body: createUserSchema,
+      body: CreateUserSchema,
       response: {
-        200: userSchema,
+        200: UserSchema,
       },
     },
     handler: async (request, reply) => {

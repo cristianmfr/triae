@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { credentialsSchema } from './auth.schema'
+import { CredentialsSchema } from './auth.schema'
 import authService from './auth.service'
 
 export const authRoutes: FastifyPluginAsyncZod = async (fastify) => {
@@ -10,7 +10,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (fastify) => {
     schema: {
       tags: ['Auth'],
       summary: 'Sign in with user credentials',
-      body: credentialsSchema,
+      body: CredentialsSchema,
       response: {
         204: z.null(),
       },
@@ -30,15 +30,6 @@ export const authRoutes: FastifyPluginAsyncZod = async (fastify) => {
       })
 
       return reply.code(204).send(null)
-    },
-  })
-
-  fastify.route({
-    method: 'GET',
-    url: '/auth/cu',
-    preHandler: [fastify.authenticate],
-    handler: async (_request, reply) => {
-      return reply.send(null)
     },
   })
 }
