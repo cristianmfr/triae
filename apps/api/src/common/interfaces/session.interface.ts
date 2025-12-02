@@ -1,20 +1,25 @@
-export interface SessionData {
-  user: {
-    id: string
-    email: string
-    username: string
-    name: string
-    createdAt: number
-  }
-  session: {
-    token: string
-    userId: string
-    expiresAt: number
-    createdAt: number
-  }
-}
-
 export interface RefreshToken {
   token: string
   expiresAt: number
+}
+
+export interface SessionUser {
+  id: string
+  email: string
+  username: string
+  name?: string
+  createdAt: Date
+}
+
+export interface Session {
+  token: string
+  userId: string
+  expiresAt: number
+  createdAt: number
+  updatedAt?: number // Opcional, usado apenas no refreshSession
+}
+
+export interface SessionData {
+  user: SessionUser
+  session: Session
 }

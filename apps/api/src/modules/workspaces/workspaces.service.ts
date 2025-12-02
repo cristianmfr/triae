@@ -1,10 +1,14 @@
 import { prisma } from '@triae/database/prisma'
 import { ConflictError } from '@/common/errors/conflict-error'
 import { NotFoundError } from '@/common/errors/not-found-error'
+import { redis } from '@/utils/redis'
 import { generateWorkspaceSlug } from '@/utils/workspace-slug'
+import usersService from '../users/users.service'
 import { CreateWorkspaceInput } from './workspaces.schema'
 
 class WorkspacesService {
+  private readonly WORKSPACE_CACHE_EXP_TTL = 60 * 60 * 24 * 7
+
   async findManyWorkspaces() {
     return await prisma.workspace.findMany()
   }
@@ -99,6 +103,65 @@ class WorkspacesService {
 
       return workspace
     })
+  }
+
+  async createWorkspaceSession(userId: string, slug: string) {
+    const hasWorkspaceSession = await redis.exists(`workspace:${userId}`)
+
+    if (hasWorkspaceSession) {
+      await redis.del(`workspace:${userId}`)
+    }
+
+    const user = await usersService.findUniqueUserById(userId)
+
+    const resolvedSlug = generateWorkspaceSlug(user.username, slug)
+
+    const workspace = await prisma.workspace.findFirst({
+      where: {
+        slug: resolvedSlug,
+        workspaceMembers: {
+          some: {
+            userId,
+            active: true,
+          },
+        },
+      },
+    })
+
+    if (!workspace) throw new NotFoundError('Workspace')
+
+    const workspaceMember = await prisma.workspaceMember.findUnique({
+      where: {
+        userId_workspaceId: { userId, workspaceId: workspace.id },
+      },
+      include: {
+        user: true,
+      },
+    })
+
+    if (!workspaceMember) throw new NotFoundError('Workspace member')
+
+    const workspacePayload = {
+      workspace: {
+        id: workspace.id,
+        name: workspace.name,
+        slug: slug,
+      },
+      member: {
+        id: workspaceMember.user.id,
+        username: workspaceMember.user.username,
+        role: workspaceMember.role,
+      },
+    }
+
+    await redis.set(
+      `workspace:${userId}`,
+      JSON.stringify(workspacePayload),
+      'EX',
+      this.WORKSPACE_CACHE_EXP_TTL,
+    )
+
+    return workspacePayload
   }
 }
 

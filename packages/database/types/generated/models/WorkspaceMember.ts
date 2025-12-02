@@ -216,6 +216,7 @@ export type WorkspaceMemberOrderByWithRelationInput = {
 
 export type WorkspaceMemberWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  userId_workspaceId?: Prisma.WorkspaceMemberUserIdWorkspaceIdCompoundUniqueInput
   AND?: Prisma.WorkspaceMemberWhereInput | Prisma.WorkspaceMemberWhereInput[]
   OR?: Prisma.WorkspaceMemberWhereInput[]
   NOT?: Prisma.WorkspaceMemberWhereInput | Prisma.WorkspaceMemberWhereInput[]
@@ -227,7 +228,7 @@ export type WorkspaceMemberWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"WorkspaceMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
-}, "id">
+}, "id" | "userId_workspaceId">
 
 export type WorkspaceMemberOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -331,6 +332,11 @@ export type WorkspaceMemberListRelationFilter = {
 
 export type WorkspaceMemberOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type WorkspaceMemberUserIdWorkspaceIdCompoundUniqueInput = {
+  userId: string
+  workspaceId: string
 }
 
 export type WorkspaceMemberCountOrderByAggregateInput = {

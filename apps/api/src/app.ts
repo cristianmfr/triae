@@ -1,5 +1,6 @@
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
+import { fastifyJwt } from '@fastify/jwt'
 import { fastifySwagger } from '@fastify/swagger'
 import ScalarApiReference from '@scalar/fastify-api-reference'
 import { env } from '@triae/env'
@@ -31,6 +32,10 @@ const buildApp = () => {
   })
 
   app.register(auth)
+
+  app.register(fastifyJwt, {
+    secret: env.JWT_SECRET_KEY,
+  })
 
   app.register(fastifyCookie, {
     secret: env.JWT_SECRET_KEY,

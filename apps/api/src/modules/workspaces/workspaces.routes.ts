@@ -88,4 +88,46 @@ export const workspacesRoutes: FastifyPluginAsyncZod = async (fastify) => {
       })
     },
   })
+
+  fastify.route({
+    method: 'POST',
+    url: '/workspaces/session/:slug',
+    schema: {
+      tags: ['Workspaces'],
+      summary: 'Store current workspace on Redis',
+      params: z.object({
+        slug: z.string(),
+      }),
+      response: {
+        204: z.null(),
+      },
+    },
+    preHandler: [fastify.authenticate],
+    handler: async (request, reply) => {
+      const userId = request.session?.user.id
+      const slug = request.params.slug
+
+      if (!userId) throw new UnauthorizedError()
+
+      const workspaceSession = await workspacesService.createWorkspaceSession(
+        userId,
+        slug,
+      )
+
+      const jwtToken = fastify.jwt.sign(
+        { workspace: JSON.stringify(workspaceSession) },
+        {
+          expiresIn: '7d',
+        },
+      )
+
+      reply.setCookie('triae_session_workspace', jwtToken, {
+        httpOnly: true,
+        path: '/',
+        secure: true,
+      })
+
+      return reply.code(204).send(null)
+    },
+  })
 }
