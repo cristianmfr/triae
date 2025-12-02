@@ -1,9 +1,13 @@
 import '@/styles/globals.css'
 
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+import { Red_Hat_Display } from 'next/font/google'
 import { Providers } from './providers'
+
+const fontSans = Red_Hat_Display({
+  variable: '--font-sans',
+  style: 'normal',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +29,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${fontSans.className} antialiased`}
     >
       <body>
         <Providers locale={locale}>{children}</Providers>

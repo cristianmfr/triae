@@ -1,5 +1,6 @@
 import { env } from '@triae/env'
-import { type CookiesFn, getCookie } from 'cookies-next'
+// biome-ignore lint/style/useImportType: asd
+import { CookiesFn, getCookie } from 'cookies-next'
 import ky from 'ky'
 
 export const httpClient = ky.create({
@@ -15,10 +16,13 @@ export const httpClient = ky.create({
 
           cookieStore = serverCookies
         }
-        const token = getCookie('token', { cookies: cookieStore })
+
+        const token = await getCookie('triae_session_token', {
+          cookies: cookieStore,
+        })
 
         if (token) {
-          request.headers.set('Authorization', `Bearer ${token}`)
+          request.headers.set('Cookie', `triae_session_token=${token}`)
         }
       },
     ],

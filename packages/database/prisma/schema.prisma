@@ -10,11 +10,12 @@ datasource db {
 model User {
   id String @id @default(uuid(7))
 
-  username String  @unique
-  email    String  @unique
-  password String?
-  active   Boolean @default(true)
-  verified Boolean @default(true)
+  username      String  @unique
+  email         String  @unique
+  password      String?
+  active        Boolean @default(true)
+  verified      Boolean @default(true)
+  hasWorkspaces Boolean @default(false) @map("has_workspaces")
 
   profile Profile?
 

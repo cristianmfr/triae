@@ -29,9 +29,7 @@ export default async function proxy(request: NextRequest) {
   )
 
   const authToken = request.cookies.get('triae_session_token')
-  const hasWorkspacesString = request.cookies.get(
-    '_triae.access.has-workspaces',
-  )
+  const hasWorkspacesString = request.cookies.get('has_workspaces')
 
   const hasWorkspaces =
     // biome-ignore lint/complexity/noUselessTernary: needed

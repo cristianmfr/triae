@@ -98,6 +98,11 @@ class UserService {
       where: { id: user.id },
     })
   }
+
+  async hasUserWorkspaces(userId: string) {
+    const user = await this.findUniqueUserById(userId)
+    return user.hasWorkspaces
+  }
 }
 
 export default new UserService()

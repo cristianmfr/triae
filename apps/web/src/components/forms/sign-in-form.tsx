@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { signIn } from '@/actions/auth/sign-in'
+import { checkHasWorkspaces } from '@/actions/users/check-has-workspaces'
 import { useI18n } from '@/locale/client'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
@@ -30,13 +31,16 @@ export function SignInForm() {
 
   const onSubmit = form.handleSubmit(
     async ({ email, password }: SignInFormData) => {
-      try {
-        await signIn({ email, password })
-        toast.success('deu bom')
-      } catch (error) {
-        console.error(error)
-        toast.error('ai é foda')
-      }
+      await signIn({ email, password })
+        .then(() => {
+          toast.success('deu bom')
+        })
+        .catch((error) => {
+          console.error(error)
+          toast.error('ai é foda')
+        })
+
+      await checkHasWorkspaces()
     },
   )
 
