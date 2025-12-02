@@ -1,6 +1,6 @@
 import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { UnauthorizedError } from '@/common/errors/unauthorized-error'
+import { UnauthorizedError } from '@/common/errors/unauthorized.error'
 import { CreateWorkspaceSchema, WorkspaceSchema } from './workspaces.schema'
 import workspacesService from './workspaces.service'
 
@@ -10,7 +10,7 @@ export const workspacesRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/workspaces',
     schema: {
       tags: ['Workspaces'],
-      summary: 'Get all user workspaces',
+      summary: 'Get all authenticated user workspaces',
       response: {
         200: z.object({
           workspaces: z.array(WorkspaceSchema),
@@ -34,7 +34,7 @@ export const workspacesRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/workspaces/:slug',
     schema: {
       tags: ['Workspaces'],
-      summary: 'Find a user workspace by slug',
+      summary: 'Get authenticated user workspace by slug',
       params: z.object({
         slug: z.string(),
       }),
@@ -65,7 +65,7 @@ export const workspacesRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/workspaces',
     schema: {
       tags: ['Workspaces'],
-      summary: 'Create a user workspace',
+      summary: 'Create a new user workspace',
       body: CreateWorkspaceSchema,
       response: {
         201: z.object({
@@ -94,7 +94,7 @@ export const workspacesRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/workspaces/session/:slug',
     schema: {
       tags: ['Workspaces'],
-      summary: 'Store current workspace on Redis',
+      summary: 'Create user workspace session and store on Redis',
       params: z.object({
         slug: z.string(),
       }),

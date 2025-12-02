@@ -9,7 +9,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/auth/sign-in/credentials',
     schema: {
       tags: ['Auth'],
-      summary: 'Sign in with user credentials',
+      summary: 'Authenticate with user credentials (email and password)',
       body: CredentialsSchema,
       response: {
         204: z.null(),

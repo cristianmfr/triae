@@ -1,6 +1,6 @@
 import { prisma } from '@triae/database/prisma'
 import { hash } from 'bcryptjs'
-import { NotFoundError } from '@/common/errors/not-found-error'
+import { NotFoundError } from '@/common/errors/not-found.error'
 import { CreateUserInput } from './users.schema'
 
 class UserService {

@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import fp from 'fastify-plugin'
 import authService from '@/modules/auth/auth.service'
-import { UnauthorizedError } from '../errors/unauthorized-error'
+import { UnauthorizedError } from '../errors/unauthorized.error'
 import { SessionData } from '../interfaces/session.interface'
 
 declare module 'fastify' {

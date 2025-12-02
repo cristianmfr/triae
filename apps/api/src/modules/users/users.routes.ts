@@ -9,7 +9,7 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/users',
     schema: {
       tags: ['Users'],
-      summary: 'Get all users',
+      summary: 'Fetch all registered users',
       response: {
         200: z.object({
           users: z.array(UserSchema),
@@ -27,7 +27,7 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/users/:id',
     schema: {
       tags: ['Users'],
-      summary: 'Find a user with ID',
+      summary: 'Get user by ID',
       params: z.object({
         id: z.string(),
       }),
@@ -49,7 +49,7 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/users',
     schema: {
       tags: ['Users'],
-      summary: 'Create a new user',
+      summary: 'Creates a new user',
       body: CreateUserSchema,
       response: {
         200: UserSchema,
@@ -66,7 +66,7 @@ export const usersRoutes: FastifyPluginAsyncZod = async (fastify) => {
     url: '/users/:id',
     schema: {
       tags: ['Users'],
-      summary: 'Delete a user',
+      summary: 'Delete user by ID',
       params: z.object({
         id: z.string(),
       }),

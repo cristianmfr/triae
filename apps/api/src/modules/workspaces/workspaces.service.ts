@@ -1,6 +1,6 @@
 import { prisma } from '@triae/database/prisma'
-import { ConflictError } from '@/common/errors/conflict-error'
-import { NotFoundError } from '@/common/errors/not-found-error'
+import { ConflictError } from '@/common/errors/conflict.error'
+import { NotFoundError } from '@/common/errors/not-found.error'
 import { redis } from '@/utils/redis'
 import { generateWorkspaceSlug } from '@/utils/workspace-slug'
 import usersService from '../users/users.service'

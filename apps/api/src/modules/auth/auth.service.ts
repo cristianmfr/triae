@@ -1,4 +1,4 @@
-import { UnauthorizedError } from '@/common/errors/unauthorized-error'
+import { UnauthorizedError } from '@/common/errors/unauthorized.error'
 import {
   RefreshToken,
   SessionData,
