@@ -26,7 +26,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (fastify) => {
       reply.setCookie('triae_session_token', session, {
         httpOnly: true,
         path: '/',
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
       })
 
       return reply.code(204).send(null)

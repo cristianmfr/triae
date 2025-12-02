@@ -3,8 +3,8 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from '@/components/ui/toaster'
-import { I18nProviderClient } from '@/lib/i18n/i18n-client'
-import { queryClient } from '@/lib/react-query/query-client'
+import { queryClient } from '@/lib/query-client'
+import { I18nProviderClient } from '@/locale/client'
 
 interface ProviderProps {
   locale: string
