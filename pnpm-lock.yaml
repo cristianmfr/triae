@@ -41,6 +41,9 @@ importers:
       '@triae/env':
         specifier: workspace:^
         version: link:../../packages/env
+      '@triae/tsconfig':
+        specifier: workspace:^
+        version: link:../../packages/tsconfig
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3
@@ -93,6 +96,9 @@ importers:
       '@triae/env':
         specifier: workspace:^
         version: link:../env
+      '@triae/tsconfig':
+        specifier: workspace:^
+        version: link:../tsconfig
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -115,6 +121,9 @@ importers:
       '@t3-oss/env-core':
         specifier: ^0.13.8
         version: 0.13.8(typescript@5.9.2)(valibot@1.1.0(typescript@5.9.2))(zod@4.1.13)
+      '@triae/tsconfig':
+        specifier: workspace:^
+        version: link:../tsconfig
       zod:
         specifier: ^4.1.13
         version: 4.1.13
@@ -125,6 +134,8 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
+
+  packages/tsconfig: {}
 
 packages:
 

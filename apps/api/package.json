@@ -12,6 +12,7 @@
     "@scalar/fastify-api-reference": "^1.40.0",
     "@triae/database": "workspace:^",
     "@triae/env": "workspace:^",
+    "@triae/tsconfig": "workspace:^",
     "bcryptjs": "^3.0.3",
     "fastify": "^5.6.2",
     "fastify-plugin": "^5.1.0",
