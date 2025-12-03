@@ -1,11 +1,9 @@
-import { useI18n } from '@/hooks/use-i18n'
+import { SignInForm } from '@/components/forms/sign-in-form'
 
 export default function SignIn() {
-	const { t } = useI18n()
-
-	return (
-		<div>
-			<span>{t('auth.signIn')}</span>
-		</div>
-	)
+  return (
+    <div className="flex flex-col flex-1 w-full h-screen items-center justify-between">
+      <SignInForm />
+    </div>
+  )
 }

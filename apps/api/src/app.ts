@@ -34,11 +34,11 @@ const buildApp = () => {
   app.register(auth)
 
   app.register(fastifyJwt, {
-    secret: env.JWT_SECRET_KEY,
+    secret: env.APP_SECRET,
   })
 
   app.register(fastifyCookie, {
-    secret: env.JWT_SECRET_KEY,
+    secret: env.APP_SECRET,
     hook: 'preHandler',
   })
 
@@ -61,7 +61,7 @@ const buildApp = () => {
   app.register(usersRoutes)
   app.register(workspacesRoutes)
 
-  app.listen({ port: env.PORT, host: env.HOST })
+  app.listen({ port: env.APP_PORT, host: env.APP_HOST })
 
   return app
 }

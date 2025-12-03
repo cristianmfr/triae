@@ -23,7 +23,7 @@ export function createSessionToken(options: SessionTokenOptions): string {
 
   const payloadString = JSON.stringify(payload)
 
-  const hmac = createHmac('sha256', env.JWT_SECRET_KEY)
+  const hmac = createHmac('sha256', env.APP_SECRET)
   hmac.update(payloadString)
 
   return hmac.digest('base64url')
@@ -43,7 +43,7 @@ export function verifySessionToken(
     }
 
     const payloadString = JSON.stringify(payload)
-    const hmac = createHmac('sha256', env.JWT_SECRET_KEY)
+    const hmac = createHmac('sha256', env.APP_SECRET)
     hmac.update(payloadString)
     const expectedHash = hmac.digest('base64url')
 
