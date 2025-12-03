@@ -5,8 +5,8 @@ import { app } from './app'
 async function server() {
   try {
     app()
-    console.log(`API server running on ${env.HOST}:${env.PORT}`)
-    console.log(`Docs available at prefix ${env.HOST}:${env.PORT}/docs`)
+    console.log(`API server running on ${env.APP_HOST}:${env.APP_PORT}`)
+    console.log(`Docs available at prefix ${env.APP_HOST}:${env.APP_PORT}/docs`)
   } catch (error) {
     const err = error as FastifyError
     console.error(err.message)
