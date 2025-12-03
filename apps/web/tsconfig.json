@@ -1,0 +1,10 @@
+{
+  "extends": "@triae/tsconfig/react.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
