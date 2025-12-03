@@ -3,8 +3,8 @@ import '@/styles/globals.css'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-
-import { routeTree } from './tree.gen'
+import { Providers } from './providers'
+import { routeTree } from './router'
 
 const router = createRouter({ routeTree })
 
@@ -20,7 +20,9 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <Providers locale="en">
+        <RouterProvider router={router} />
+      </Providers>
     </StrictMode>,
   )
 }
