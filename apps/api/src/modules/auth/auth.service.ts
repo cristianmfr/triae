@@ -75,6 +75,17 @@ class AuthService {
     return JSON.parse(refreshTokens)
   }
 
+  private async clearExistingSessions(userId: string) {
+    const existingTokens = await redis.get(`session:${userId}`)
+
+    if (existingTokens) {
+      const tokens: RefreshToken[] = JSON.parse(existingTokens)
+
+      await Promise.all(tokens.map((rt) => redis.del(rt.token)))
+      await redis.del(`session:${userId}`)
+    }
+  }
+
   async createSession({ email, password }: CredentialsInput) {
     const user = await usersService.findUniqueUserByEmail(email)
 
@@ -84,6 +95,8 @@ class AuthService {
     const validatePassword = await comparePasswords(password, user.password)
 
     if (!validatePassword) throw new UnauthorizedError('Invalid password.')
+
+    await this.clearExistingSessions(user.id)
 
     const currentDate = this.getCurrentTimestamp()
     const expirationDate = currentDate + this.TOKEN_EXP_TIME

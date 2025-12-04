@@ -1,0 +1,13 @@
+import type { Prisma } from '../../client';
+import * as z from 'zod';
+import { WorkspaceMemberWhereInputObjectSchema as WorkspaceMemberWhereInputObjectSchema } from './objects/WorkspaceMemberWhereInput.schema';
+import { WorkspaceMemberOrderByWithAggregationInputObjectSchema as WorkspaceMemberOrderByWithAggregationInputObjectSchema } from './objects/WorkspaceMemberOrderByWithAggregationInput.schema';
+import { WorkspaceMemberScalarWhereWithAggregatesInputObjectSchema as WorkspaceMemberScalarWhereWithAggregatesInputObjectSchema } from './objects/WorkspaceMemberScalarWhereWithAggregatesInput.schema';
+import { WorkspaceMemberScalarFieldEnumSchema } from './enums/WorkspaceMemberScalarFieldEnum.schema';
+import { WorkspaceMemberCountAggregateInputObjectSchema as WorkspaceMemberCountAggregateInputObjectSchema } from './objects/WorkspaceMemberCountAggregateInput.schema';
+import { WorkspaceMemberMinAggregateInputObjectSchema as WorkspaceMemberMinAggregateInputObjectSchema } from './objects/WorkspaceMemberMinAggregateInput.schema';
+import { WorkspaceMemberMaxAggregateInputObjectSchema as WorkspaceMemberMaxAggregateInputObjectSchema } from './objects/WorkspaceMemberMaxAggregateInput.schema';
+
+export const WorkspaceMemberGroupBySchema: z.ZodType<Prisma.WorkspaceMemberGroupByArgs> = z.object({ where: WorkspaceMemberWhereInputObjectSchema.optional(), orderBy: z.union([WorkspaceMemberOrderByWithAggregationInputObjectSchema, WorkspaceMemberOrderByWithAggregationInputObjectSchema.array()]).optional(), having: WorkspaceMemberScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(WorkspaceMemberScalarFieldEnumSchema), _count: z.union([ z.literal(true), WorkspaceMemberCountAggregateInputObjectSchema ]).optional(), _min: WorkspaceMemberMinAggregateInputObjectSchema.optional(), _max: WorkspaceMemberMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.WorkspaceMemberGroupByArgs>;
+
+export const WorkspaceMemberGroupByZodSchema = z.object({ where: WorkspaceMemberWhereInputObjectSchema.optional(), orderBy: z.union([WorkspaceMemberOrderByWithAggregationInputObjectSchema, WorkspaceMemberOrderByWithAggregationInputObjectSchema.array()]).optional(), having: WorkspaceMemberScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(WorkspaceMemberScalarFieldEnumSchema), _count: z.union([ z.literal(true), WorkspaceMemberCountAggregateInputObjectSchema ]).optional(), _min: WorkspaceMemberMinAggregateInputObjectSchema.optional(), _max: WorkspaceMemberMaxAggregateInputObjectSchema.optional() }).strict();

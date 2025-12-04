@@ -1,7 +1,7 @@
 export default function Inbox() {
-	return (
-		<div>
-			<span>Inbox</span>
-		</div>
-	)
+  return (
+    <div>
+      <span className="text-white">Inbox</span>
+    </div>
+  )
 }

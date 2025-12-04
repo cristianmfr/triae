@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "main": "index.js",
   "exports": {
-    "./prisma": "./src/index.ts"
+    "./prisma": "./src/index.ts",
+    "./schemas": "./src/types/generated/zod/schemas/index.ts"
   },
   "scripts": {
     "generate": "pnpm run load:env prisma generate",
@@ -14,6 +15,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "prisma-zod-generator": "^2.1.2",
     "typescript": "5.9.2"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
     "@triae/tsconfig": "workspace:^",
     "dotenv": "^17.2.3",
     "dotenv-cli": "^11.0.0",
-    "prisma": "^7.0.1"
+    "prisma": "^7.0.1",
+    "zod": "^4.1.13"
   }
 }
