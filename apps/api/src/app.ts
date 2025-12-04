@@ -11,11 +11,11 @@ import {
   validatorCompiler,
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
-import { errorHandler } from './common/error-handler'
-import { auth } from './common/plugins/auth.plugin'
-import { authRoutes } from './modules/auth/auth.routes'
-import { usersRoutes } from './modules/users/users.routes'
-import { workspacesRoutes } from './modules/workspaces/workspaces.routes'
+import { authRoutes } from './routes/auth'
+import { usersRoutes } from './routes/users'
+import { workspacesRoutes } from './routes/workspaces'
+import { errorHandler } from './server/error-handler'
+import { auth } from './server/plugins/auth-plugin'
 
 const buildApp = () => {
   const app = fastify().withTypeProvider<ZodTypeProvider>()

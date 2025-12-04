@@ -16,7 +16,6 @@
     "@tanstack/react-router": "^1.139.14",
     "@triae/database": "workspace:^",
     "@triae/env": "workspace:^",
-    "@triae/sdk": "workspace:^",
     "@triae/tsconfig": "workspace:^",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

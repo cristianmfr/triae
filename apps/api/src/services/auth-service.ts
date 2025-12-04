@@ -1,17 +1,21 @@
-import { UnauthorizedError } from '@/common/errors/unauthorized.error'
+import { compare } from 'bcryptjs'
 import {
   RefreshToken,
   SessionData,
-} from '@/common/interfaces/session.interface'
-import { comparePasswords } from '@/utils/hash'
-import { redis } from '@/utils/redis'
-import { createSessionToken } from '@/utils/session'
-import usersService from '../users/users.service'
-import { CredentialsInput } from './auth.schema'
+} from '@/common/interfaces/session-interface'
+import { CredentialsInput } from '@/schemas/auth-schemas'
+import { UnauthorizedError } from '@/server/errors/unauthorized-error'
+import redisService from './redis-service'
+import sessionService from './session-service'
+import usersService from './users-service'
 
 class AuthService {
   private readonly SESSION_EXP_TTL = 60 * 60 * 24 * 7
   private readonly TOKEN_EXP_TIME = 60 * 15
+
+  async comparePasswords(plainPassword: string, hashPassword: string) {
+    return await compare(plainPassword, hashPassword)
+  }
 
   private getCurrentTimestamp(): number {
     return Math.floor(Date.now() / 1000)
@@ -57,18 +61,17 @@ class AuthService {
     refreshTokensArray: RefreshToken[],
     ttl: number,
   ) {
-    await redis.set(
+    await redisService.set(
       `session:${userId}`,
       JSON.stringify(refreshTokensArray),
-      'EX',
       ttl,
     )
 
-    await redis.set(sessionToken, JSON.stringify(sessionPayload), 'EX', ttl)
+    await redisService.set(sessionToken, JSON.stringify(sessionPayload), ttl)
   }
 
   private async getRefreshTokens(userId: string): Promise<RefreshToken[]> {
-    const refreshTokens = await redis.get(`session:${userId}`)
+    const refreshTokens = await redisService.get(`session:${userId}`)
 
     if (!refreshTokens) throw new UnauthorizedError()
 
@@ -76,13 +79,13 @@ class AuthService {
   }
 
   private async clearExistingSessions(userId: string) {
-    const existingTokens = await redis.get(`session:${userId}`)
+    const existingTokens = await redisService.get(`session:${userId}`)
 
     if (existingTokens) {
       const tokens: RefreshToken[] = JSON.parse(existingTokens)
 
-      await Promise.all(tokens.map((rt) => redis.del(rt.token)))
-      await redis.del(`session:${userId}`)
+      await Promise.all(tokens.map((rt) => redisService.del(rt.token)))
+      await redisService.del(`session:${userId}`)
     }
   }
 
@@ -92,7 +95,10 @@ class AuthService {
     if (!user.password)
       throw new UnauthorizedError('Method not enabled for this account.')
 
-    const validatePassword = await comparePasswords(password, user.password)
+    const validatePassword = await this.comparePasswords(
+      password,
+      user.password,
+    )
 
     if (!validatePassword) throw new UnauthorizedError('Invalid password.')
 
@@ -101,7 +107,7 @@ class AuthService {
     const currentDate = this.getCurrentTimestamp()
     const expirationDate = currentDate + this.TOKEN_EXP_TIME
 
-    const sessionToken = createSessionToken({
+    const sessionToken = sessionService.createToken({
       userId: user.id,
       expiresIn: this.TOKEN_EXP_TIME,
     })
@@ -130,7 +136,7 @@ class AuthService {
   }
 
   async validateSession(token: string) {
-    const session = await redis.get(token)
+    const session = await redisService.get(token)
 
     if (!session) throw new UnauthorizedError()
 
@@ -146,7 +152,7 @@ class AuthService {
   }
 
   async refreshSession(token: string) {
-    const session = await redis.get(token)
+    const session = await redisService.get(token)
 
     if (!session) throw new UnauthorizedError()
 
@@ -158,7 +164,7 @@ class AuthService {
     const currentDate = this.getCurrentTimestamp()
     const expirationDate = currentDate + this.TOKEN_EXP_TIME
 
-    const sessionToken = createSessionToken({
+    const sessionToken = sessionService.createToken({
       userId: sessionData.user.id,
       expiresIn: expirationDate,
     })
@@ -177,7 +183,7 @@ class AuthService {
 
     refreshTokensArray.push(refreshPayload)
 
-    await redis.del(sessionData.session.token)
+    await redisService.del(sessionData.session.token)
 
     await this.saveSessionToRedis(
       sessionData.user.id,

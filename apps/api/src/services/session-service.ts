@@ -1,0 +1,58 @@
+import { env } from '@triae/env'
+import { createHmac, randomBytes } from 'crypto'
+
+interface SessionTokenOptions {
+  userId: string
+  expiresIn?: number
+}
+
+interface SessionTokenPayload extends SessionTokenOptions {
+  createdAt: number
+  expiresAt: number
+  nonce: string
+}
+
+class SessionService {
+  createToken(options: SessionTokenOptions): string {
+    const { userId, expiresIn = 86400 } = options
+
+    const createdAt = Date.now()
+    const expiresAt = createdAt + expiresIn * 1000
+
+    const nonce = randomBytes(16).toString('hex')
+
+    const payload = {
+      userId,
+      createdAt,
+      expiresAt,
+      nonce,
+    }
+
+    const payloadString = JSON.stringify(payload)
+
+    const hmac = createHmac('sha256', env.APP_SECRET)
+    hmac.update(payloadString)
+
+    return hmac.digest('base64url')
+  }
+
+  verifyToken(token: string, payload: SessionTokenPayload): boolean {
+    try {
+      if (Date.now() > payload.expiresAt) {
+        return false
+      }
+
+      const payloadString = JSON.stringify(payload)
+      const hmac = createHmac('sha256', env.APP_SECRET)
+      hmac.update(payloadString)
+      const expectedHash = hmac.digest('base64url')
+
+      return token === expectedHash
+    } catch {
+      return false
+    }
+  }
+}
+
+export default new SessionService()
+

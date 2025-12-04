@@ -105,9 +105,6 @@ importers:
       '@triae/env':
         specifier: workspace:^
         version: link:../../packages/env
-      '@triae/sdk':
-        specifier: workspace:^
-        version: link:../../packages/sdk
       '@triae/tsconfig':
         specifier: workspace:^
         version: link:../../packages/tsconfig
@@ -246,40 +243,6 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
-
-  packages/sdk:
-    dependencies:
-      '@triae/database':
-        specifier: workspace:^
-        version: link:../database
-      '@triae/env':
-        specifier: workspace:^
-        version: link:../env
-      '@triae/tsconfig':
-        specifier: workspace:^
-        version: link:../tsconfig
-      '@types/js-cookie':
-        specifier: ^3.0.6
-        version: 3.0.6
-      js-cookie:
-        specifier: ^3.0.5
-        version: 3.0.5
-      ky:
-        specifier: ^1.14.0
-        version: 1.14.0
-      zod:
-        specifier: ^4.1.13
-        version: 4.1.13
-    devDependencies:
-      '@biomejs/biome':
-        specifier: 2.3.8
-        version: 2.3.8
-      '@types/node':
-        specifier: ^24.10.1
-        version: 24.10.1
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
   packages/tsconfig: {}
 

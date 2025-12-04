@@ -1,5 +1,5 @@
 import z from 'zod'
-import { UserSchema } from '../users/users.schema'
+import { UserSchema } from './users-schemas'
 
 export const WorkspaceRoleEnumSchema = z.enum([
   'OWNER',
@@ -29,16 +29,24 @@ export const WorkspaceMemberSchema = z.object({
   workspace: WorkspaceSchema,
 })
 
-export const CreateWorkspaceSchema = z.object({
+export const CreateWorkspaceInputSchema = z.object({
   name: z.string(),
   slug: z.string(),
   description: z.string().optional(),
 })
 
-export const UpdateWorkspaceSchema = CreateWorkspaceSchema.partial()
+export const UpdateWorkspaceInputSchema = CreateWorkspaceInputSchema.partial()
+
+export const CreateWorkspaceResponseSchema = z.object({
+  createdWorkspace: WorkspaceSchema,
+})
+
+export const UpdateWorkspaceResponseSchema = z.object({
+  updatedWorkspace: WorkspaceSchema,
+})
 
 export type Workspace = z.infer<typeof WorkspaceSchema>
 export type WorkspaceMember = z.infer<typeof WorkspaceMemberSchema>
 
-export type CreateWorkspaceInput = z.infer<typeof CreateWorkspaceSchema>
-export type UpdateWorkspaceInput = z.infer<typeof UpdateWorkspaceSchema>
+export type CreateWorkspaceInput = z.infer<typeof CreateWorkspaceInputSchema>
+export type UpdateWorkspaceInput = z.infer<typeof UpdateWorkspaceInputSchema>

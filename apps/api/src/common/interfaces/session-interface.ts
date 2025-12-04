@@ -16,7 +16,7 @@ export interface Session {
   userId: string
   expiresAt: number
   createdAt: number
-  updatedAt?: number // Opcional, usado apenas no refreshSession
+  updatedAt?: number
 }
 
 export interface SessionData {

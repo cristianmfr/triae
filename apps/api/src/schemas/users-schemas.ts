@@ -22,7 +22,7 @@ export const UserSchema = z.object({
   updatedAt: z.date(),
 })
 
-export const CreateUserSchema = z.object({
+export const CreateUserInputSchema = z.object({
   username: z.string(),
   email: z.string(),
   password: z.string().optional(),
@@ -32,10 +32,25 @@ export const CreateUserSchema = z.object({
   image: z.string().optional(),
 })
 
-export const UpdateUserSchema = CreateUserSchema.partial()
+export const UpdateUserInputSchema = CreateUserInputSchema.partial()
+
+export const GetUserQueryResponse = z.object({
+  user: UserSchema,
+})
+
+export const CreateUserResponseSchema = z.object({
+  createdUser: UserSchema,
+})
+
+export const UpdateUserResponseSchema = z.object({
+  updatedUser: UserSchema,
+})
 
 export type User = z.infer<typeof UserSchema>
 export type Profile = z.infer<typeof ProfileSchema>
 
-export type CreateUserInput = z.infer<typeof CreateUserSchema>
-export type UpdateUserInput = z.infer<typeof UpdateUserSchema>
+export type CreateUserInput = z.infer<typeof CreateUserInputSchema>
+export type UpdateUserInput = z.infer<typeof UpdateUserInputSchema>
+
+export type CreateUserResponse = z.infer<typeof CreateUserResponseSchema>
+export type UpdateUserResponse = z.infer<typeof UpdateUserResponseSchema>

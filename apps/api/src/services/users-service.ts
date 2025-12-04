@@ -1,7 +1,8 @@
 import { prisma } from '@triae/database/prisma'
 import { hash } from 'bcryptjs'
-import { NotFoundError } from '@/common/errors/not-found.error'
-import { CreateUserInput } from './users.schema'
+import { UpdateUserInput } from '@/schemas/users-schemas'
+import { NotFoundError } from '@/server/errors/not-found-error'
+import { CreateUserInput } from '../schemas/users-schemas'
 
 class UserService {
   private readonly HASH_SALT_ROUNDS = 12
@@ -59,6 +60,43 @@ class UserService {
           verified: true,
           profile: {
             create: {
+              name: input.name,
+              email: input.email,
+              phone: input.phone,
+              company: input.company,
+              image: input.image,
+            },
+          },
+        },
+        include: {
+          profile: true,
+        },
+      })
+
+      return user
+    })
+
+    return addUserTransaction
+  }
+
+  async updateUser(id: string, input: UpdateUserInput) {
+    const addUserTransaction = await prisma.$transaction(async (tx) => {
+      let passwordHashed = null
+
+      if (input.password) {
+        passwordHashed = await hash(input.password, this.HASH_SALT_ROUNDS)
+      }
+
+      const user = await tx.user.update({
+        where: { id },
+        data: {
+          email: input.email,
+          password: passwordHashed,
+          username: input.username,
+          active: true,
+          verified: true,
+          profile: {
+            update: {
               name: input.name,
               email: input.email,
               phone: input.phone,
