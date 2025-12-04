@@ -1,15 +1,15 @@
 import { createRoute, redirect } from '@tanstack/react-router'
-import { getUserWorkspaces } from '@/actions/workspaces/get-user-workspaces'
+import { getUserWorkspaces } from '@/app/actions/workspaces/get-user-workspaces'
 import { workspaceRoute } from '../route'
 
-import Setup from './page'
+import Inbox from './page'
 
-export const setupRoute = createRoute({
+export const inboxRoute = createRoute({
   getParentRoute: () => workspaceRoute,
-  path: '/setup',
-  component: Setup,
+  path: '/',
+  component: Inbox,
   beforeLoad: async () => {
     const hasWorkspaces = await getUserWorkspaces()
-    if (hasWorkspaces) redirect({ to: '/' })
+    if (!hasWorkspaces) redirect({ to: '/setup' })
   },
 })

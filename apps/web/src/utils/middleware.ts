@@ -1,11 +1,9 @@
 import { redirect } from '@tanstack/react-router'
-import { checkAuth } from '@/actions/auth/check-auth'
+import { checkAuth } from '@/app/actions/auth/check-auth'
 
 const publicRoutes = [
-  {
-    path: '/sign-in',
-    redirect: true,
-  },
+  { path: '/login', redirect: true },
+  { path: '/register', redirect: true, prefix: true },
 ]
 
 async function isAuthenticated(): Promise<boolean> {
@@ -22,7 +20,10 @@ async function isAuthenticated(): Promise<boolean> {
 export async function middleware(path: string) {
   const authenticated = await isAuthenticated()
 
-  const publicRoute = publicRoutes.find((route) => route.path === path)
+  const publicRoute = publicRoutes.find((route) =>
+    route.prefix ? path.startsWith(route.path) : route.path === path,
+  )
+
   const redirectWhenAuthenticated = publicRoute?.redirect
 
   if (authenticated && publicRoute && redirectWhenAuthenticated) {
@@ -30,6 +31,6 @@ export async function middleware(path: string) {
   }
 
   if (!authenticated && !publicRoute) {
-    throw redirect({ to: '/sign-in' })
+    throw redirect({ to: '/login' })
   }
 }

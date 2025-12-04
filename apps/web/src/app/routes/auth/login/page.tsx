@@ -4,7 +4,7 @@ import { AuthMethods } from '@/components/modules/auth/auth-methods'
 import { AuthWithEmail } from '@/components/modules/auth/auth-with-email'
 import { Logo } from '@/components/ui/logo'
 
-export default function SignIn() {
+export default function Login() {
   const [signInMethod, setSignInMethod] = useState<'select' | 'email'>('select')
 
   return (

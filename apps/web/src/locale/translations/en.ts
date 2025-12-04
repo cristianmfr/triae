@@ -1,36 +1,42 @@
 const en = {
-  'auth.title': 'Log in to Triae',
-  'auth.methods.email': 'Continue with email',
-  'auth.methods.email.title': 'Type your email and password',
-  'auth.methods.email.submit': 'Continue',
-  'auth.methods.email.back': 'Back to login',
-  'auth.forgot.label': 'Dont have a account?',
-  'auth.forgot.link': 'Sign up',
+  'auth.title': 'Boas vindas ao Triae',
+  'auth.message': 'Para acessar sua conta selecione o método de login',
+  'auth.methods.email': 'Entrar com email e senha',
+  'auth.methods.google': 'Entrar com o Google',
+  'auth.methods.email.title': 'Digite seu email e senha',
+  'auth.methods.email.submit': 'Continuar',
+  'auth.methods.email.back': 'Voltar para o início',
+  'auth.signup.label': 'Ainda não tem uma conta?',
+  'auth.signup.button': 'Enviar email',
 
-  'setup.title': 'Create your first workspace',
+  'signup.title': 'Crie sua conta gratuitamente',
+  'signup.message':
+    'Para criar sua conta informe seu email abaixo para enviarmos um link de confirmação',
+
+  'setup.title': 'Crie seu primeiro espaço de trabalho',
   'setup.subtitle':
-    'Workspaces are shared environments where teams can work on projects, cycles and issues.',
+    'Os espaços de trabalho são ambientes compartilhados onde as equipes podem trabalhar em projetos, ciclos e problemas.',
 
-  'forms.setup.workspace.name': 'Workspace name',
-  'forms.setup.workspace.url': '/workspace-url',
-  'forms.setup.workspace.description': 'Workspace description',
-  'forms.setup.workspace.submit': 'Create workspace',
+  'forms.setup.workspace.name': 'Nome do espaço',
+  'forms.setup.workspace.description': 'Descrição (opcional)',
+  'forms.setup.workspace.submit': 'Criar espaço de trabalho',
 
-  'workspace.menu.options.settings': 'Settings',
-  'workspace.menu.options.logout': 'Log out',
+  'workspace.menu.options.settings': 'Configurações',
+  'workspace.menu.options.logout': 'Sair',
 
   'workspace.sidebar.options.inbox': 'Inbox',
   'workspace.sidebar.options.leads': 'Leads',
 
-  'toast.success.setup.message': 'Workspace created successfully!',
+  'toast.success.setup.message': 'Espaço de trabalho criado com sucesso!',
 
   'toast.error.auth.message':
-    'Error when authenticating. Verify your credentials and try again.',
-  'toast.error.setup.message': 'Error when creating workspace.',
+    'Ocorreu um erro ao tentar realizar seu login. Verifique suas credenciais e tente novamente.',
+  'toast.error.setup.message':
+    'Ocorreu um erro ao criar seu espaço de trabalho. Tente novamente mais tarde.',
 
   'fields.email.label': 'Email',
-  'fields.email.placeholder': 'example@email.com',
-  'fields.password.label': 'Password',
+  'fields.email.placeholder': 'seu@email.com',
+  'fields.password.label': 'Senha',
   'fields.password.placeholder': '******',
 } as const
 

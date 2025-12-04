@@ -1,7 +1,9 @@
 import { createRootRoute, createRouter, Outlet } from '@tanstack/react-router'
 import { middleware } from '@/utils/middleware'
-import { signInRoute } from './auth/sign-in/route'
-import { signUpRoute } from './auth/sign-up/route'
+import { loginRoute } from './auth/login/route'
+import { registerRoute } from './auth/register/route'
+import { validateRoute } from './auth/register/validate/route'
+import { authRoute } from './auth/route'
 import { inboxRoute } from './workspace/inbox/route'
 import { workspaceRoute } from './workspace/route'
 import { setupRoute } from './workspace/setup/route'
@@ -13,13 +15,14 @@ export const rootRoute = createRootRoute({
   },
 })
 
-const authRoutes = [signInRoute, signUpRoute]
+const authenticationRoutes = [loginRoute]
+const registrationRoutes = [registerRoute, validateRoute]
 
 const inboxRoutes = [inboxRoute]
 const setupRoutes = [setupRoute]
 
 const routeTree = rootRoute.addChildren([
-  ...authRoutes,
+  authRoute.addChildren([...authenticationRoutes, ...registrationRoutes]),
   workspaceRoute.addChildren([...inboxRoutes, ...setupRoutes]),
 ])
 

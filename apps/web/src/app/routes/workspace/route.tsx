@@ -1,5 +1,5 @@
 import { createRoute } from '@tanstack/react-router'
-import { rootRoute } from '@/app/router'
+import { rootRoute } from '@/app/routes'
 import { workspaceMiddleware } from '@/utils/workspace-middleware'
 
 export const workspaceRoute = createRoute({

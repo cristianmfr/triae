@@ -1,5 +1,5 @@
 import { redirect } from '@tanstack/react-router'
-import { getUserWorkspaces } from '@/actions/workspaces/get-user-workspaces'
+import { getUserWorkspaces } from '@/app/actions/workspaces/get-user-workspaces'
 
 const setupRoutes = [
   {

@@ -4,7 +4,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'RedHatDisplay';
+  src: url('../assets/fonts/RedHatDisplay/RedHatDisplay-VariableFont_wght.ttf') format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+}
+
 :root {
+  --font-sans: RedHatDisplay, ui-sans-serif, sans-serif, system-ui;
+
   --background: oklch(0.9900 0 0);
   --foreground: oklch(0 0 0);
   --card: oklch(1 0 0);
@@ -176,16 +185,5 @@
   }
   p {
     @apply text-sm font-light leading-relaxed;
-  }
-}
-
-/*---break--- */
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

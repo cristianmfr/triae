@@ -28,8 +28,10 @@ export function InputField({ ...props }: InputFieldProps) {
       defaultValue={props.defaultValue}
       disabled={props.disabled}
       render={({ field }) => (
-        <FormItem className="space-y-1">
-          <FormLabel className="text-sm">{props.label}</FormLabel>
+        <FormItem>
+          {props.label ? (
+            <FormLabel className="text-sm">{props.label}</FormLabel>
+          ) : null}
           <FormControl>
             <Input
               {...field}

@@ -12,7 +12,7 @@ export function AuthMethods({
   const { t } = useI18n()
 
   return (
-    <div className="flex flex-col gap-4 w-62 items-center">
+    <div className="flex flex-col gap-4 w-72 items-center">
       <div>
         <Label className="text-lg font-semibold">{t('auth.title')}</Label>
       </div>
@@ -24,15 +24,16 @@ export function AuthMethods({
       >
         {t('auth.methods.email')}
       </Button>
+
       <div className="flex items-center gap-1">
         <Label className="text-muted-foreground font-normal text-sm">
-          {t('auth.forgot.label')}
+          {t('auth.signup.label')}
         </Label>
         <Link
-          to="/sign-in"
-          className="text-white hover:underline transition ease-in text-sm"
+          to="/login"
+          className="text-white/90 hover:text-white hover:underline font-normal text-sm"
         >
-          {t('auth.forgot.link')}
+          {t('auth.signup.button')}
         </Link>
       </div>
     </div>
